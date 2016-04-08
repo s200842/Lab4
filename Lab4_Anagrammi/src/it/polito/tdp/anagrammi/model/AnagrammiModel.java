@@ -9,7 +9,7 @@ public class AnagrammiModel {
 	
 	private Parola parola;
 	
-	public String creaAnagrammi(String parola){
+	public List<String> creaAnagrammi(String parola){
 		this.parola = new Parola(parola);
 		List<Character> poolLettere = this.parola.getLettere();
 		List<Character> copiaPool = new ArrayList<Character>(poolLettere);
@@ -47,14 +47,14 @@ public class AnagrammiModel {
 	}
 	
 	//Trasforma la lista di Caratteri in Stringhe
-	public String convertitore(List<List<Character>> listaLettere){
+	public List<String> convertitore(List<List<Character>> listaLettere){
 		String parola = "";
-		String parole = "";
+		ArrayList<String> parole = new ArrayList<String>();
 		for(List<Character> lc : listaLettere){
 			for(Character c : lc){
 				parola +=c;
 			}
-			parole += parola+"\n";
+			parole.add(parola);
 			parola = "";
 		}
 		return parole;

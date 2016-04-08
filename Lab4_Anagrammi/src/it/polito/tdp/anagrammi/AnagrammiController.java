@@ -1,14 +1,19 @@
 package it.polito.tdp.anagrammi;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.anagrammi.db.ParolaDAO;
 import it.polito.tdp.anagrammi.model.AnagrammiModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class AnagrammiController {
 
@@ -25,7 +30,7 @@ public class AnagrammiController {
     private Button btnCalcola;
 
     @FXML
-    private TextArea txtResult;
+    private TextFlow txtResult;
 
     @FXML
     private Button btnReset;
@@ -39,13 +44,21 @@ public class AnagrammiController {
     @FXML
     void doCalcola(ActionEvent event) {
     	String parola = txtInput.getText();
-    	txtResult.setText(model.creaAnagrammi(parola));
+    	List<String> listaParole = model.creaAnagrammi(parola);
+    	ParolaDAO dao = new ParolaDAO();
+    	for(String s : listaParole){
+    		Text tempText = new Text(s + "\n");
+    		if(dao.checkDizionario(s) == false){
+    			tempText.setFill(Color.RED);
+    		}
+    		txtResult.getChildren().add(tempText);
+    	}
     }
 
     @FXML
     void doReset(ActionEvent event) {
     	txtInput.clear();
-    	txtResult.clear();
+    	txtResult.getChildren().clear();
     }
 
     @FXML
