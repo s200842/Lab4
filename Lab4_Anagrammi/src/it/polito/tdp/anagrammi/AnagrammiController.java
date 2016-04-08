@@ -43,6 +43,7 @@ public class AnagrammiController {
 
     @FXML
     void doCalcola(ActionEvent event) {
+    	txtResult.getChildren().clear();
     	String parola = txtInput.getText();
     	List<String> listaParole = model.creaAnagrammi(parola);
     	ParolaDAO dao = new ParolaDAO();
